@@ -4,23 +4,19 @@ class Room
 {
     protected float $a;
     protected float $b;
-    protected float $dimensions;
     public ?string $type;
 
-    function __construct(
-        $a,
-        $b,
-        $type = null
-    ) {
+    function __construct(float $a, float $b, string $type = null
+    )
+    {
         $this->a = $a;
         $this->b = $b;
         $this->type = $type;
-        $this->dimensions = $a * $b;
     }
 
-    public function getDimensions()
+    public function calcArea()
     {
-        return $this->dimensions;
+        return $this->a * $this->b;
     }
 
     /**
@@ -32,6 +28,14 @@ class Room
     }
 
     /**
+     * @param float $a
+     */
+    public function setA(float $a): void
+    {
+        $this->a = $a;
+    }
+
+    /**
      * @return float
      */
     public function getB(): float
@@ -40,13 +44,28 @@ class Room
     }
 
     /**
-     * @return mixed|string|null
+     * @param float $b
      */
-    public function getType()
+    public function setB(float $b): void
+    {
+        $this->b = $b;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
     {
         return $this->type;
     }
 
+    /**
+     * @param string|null $type
+     */
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
 
 
 }
@@ -60,63 +79,52 @@ class Apartment
         $this->rooms[] = $room;
     }
 
-    public function outputEntireArea()
+    function calcArea(string $type = null)
     {
-        $output = "";
-        $i = 1;
-        foreach ($this->rooms as $single_room) {
-            $output .= "<p>Room $i: \n";
-            $output .= "Dimensions of: ";
-            $output .= "{$single_room->getA()} * ";
-            $output .= $single_room->getB();
-            $output .= " ({$single_room->getDimensions()}) \n</p>";
-            $i++;
-        }
-        print $output;
+        $area = 0;
+        $rooms = $this->getRooms();
+        foreach ($rooms as $room)
+            if (null===$type || ($type && $type === $room->getType()))
+                $area += $room->calcArea();
+
+        return $area;
     }
 
-    public function outputEntireAreaForTypeOfRoom(string $type)
+    /**
+     * @return array
+     */
+    public function getRooms(): array
     {
-        $output = "";
-        $i = 1;
-
-        foreach ($this->rooms as $single_room) {
-//            echo var_dump($single_room) . "<br>";
-//            echo $single_room->getType();
-//            echo $type;
-            if (strcasecmp($type, $single_room->getType())) {
-                $output .= "<p>Room $i: \n";
-                $output .= "Dimensions of: ";
-                $output .= "{$single_room->getA()} * ";
-                $output .= $single_room->getB();
-                $output .= " ({$single_room->getDimensions()}) \n</p>";
-                $i++;
-            } else {
-                $output = "No rooms fo' such type in the apartment, nigga";
-            }
-        }
-        print $output;
+        return $this->rooms;
     }
+
+    /**
+     * @param array $rooms
+     */
+    public function setRooms(array $rooms): void
+    {
+        $this->rooms = $rooms;
+    }
+
+
 }
 
-///////////////////////////////// Output
+$kitchen = new Room(3, 5, 'sanitary');
+$kitchen2 = new Room(3, 5, 'technical');
+$kitchen3 = new Room(3, 5, 'technical');
+$livingRoom = new Room(5, 5, 'living');
+$livingRoom2 = new Room(5, 5, 'living');
 
-// Single room
-$kitchen = new Room(3,5, 'balcony');
-$livingroom = new Room(7,5);
-$balcony = new Room(1.5,5);
+$apartment = new Apartment();
+$apartment->addRoom($kitchen);
+$apartment->addRoom($kitchen2);
+$apartment->addRoom($kitchen3);
+$apartment->addRoom($livingRoom);
+$apartment->addRoom($livingRoom2);
 
-echo $kitchen->getDimensions();
-echo '<br>';
-
-// Read all rooms in apartment_1
-$apartment_1 = new Apartment();
-$apartment_1->addRoom($kitchen);
-$apartment_1->addRoom($livingroom);
-$apartment_1->addRoom($balcony);
-
-//$apartment_1->outputEntireArea();
-$apartment_1->outputEntireAreaForTypeOfRoom('balcony');
+$totalArea = $apartment->calcArea();
+$totalTechnicalArea = $apartment->calcArea('technical');
+$livingRoomArea = $apartment->calcArea('living');
 
 
 
