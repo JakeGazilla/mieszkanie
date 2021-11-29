@@ -1,5 +1,7 @@
 <?php
 
+use app\Database;
+
 class Room
 {
     protected float $a;
@@ -97,10 +99,22 @@ class Room
 class Apartment
 {
     private $rooms = [];
+    protected RoomType $roomType;
+
+    public function __construct()
+    {
+        $this->roomType = new RoomType();
+    }
 
     public function addRoom(Room $room)
     {
-        $this->rooms[] = $room;
+        $givenType = $room->getType();
+        if($this->roomType->checkType($givenType)) {
+            echo "Room added" . "<br>";
+            $this->rooms[] = $room;
+        } else {
+            echo 'Cannot add the room. Wrong type.' . '<br>';
+        }
     }
 
     function calcArea(string $type = null)
@@ -153,36 +167,70 @@ class Apartment
     }
 }
 
-$kitchen = new Room();
-$kitchen->setA(2);
-$kitchen->setB(4);
-$kitchen->setType('kitchen');
-$kitchen->setWindowsCount(3);
-$kitchen->setDoorsCount(2);
+class RoomType
+{
+    protected $types =
+    [
+      'kitchen',
+      'toilet',
+      'living room',
+      'balcony',
+      'bedroom'
+    ];
 
-$kitchen1 = new Room();
-$kitchen1->setA(2);
-$kitchen1->setB(4);
-$kitchen1->setType('kitchen');
-$kitchen1->setWindowsCount(3);
-$kitchen1->setDoorsCount(2);
+    public function checkType($type)
+    {
+        if(in_array($type, $this->types)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+
+
+$room1 = new Room();
+$room1->setA(2);
+$room1->setB(4);
+$room1->setType('attic');
+$room1->setWindowsCount(3);
+$room1->setDoorsCount(2);
+
+$room2 = new Room();
+$room2->setA(2);
+$room2->setB(4);
+$room2->setType('kitchen');
+$room2->setWindowsCount(3);
+$room2->setDoorsCount(2);
+
+$room3 = new Room();
+$room3->setA(2);
+$room3->setB(4);
+$room3->setType('living room');
+$room3->setWindowsCount(3);
+$room3->setDoorsCount(2);
 
 
 $apartment = new Apartment();
-$apartment->addRoom($kitchen);
-$apartment->addRoom($kitchen1);
+$apartment->addRoom($room1);
+$apartment->addRoom($room2);
+$apartment->addRoom($room3);
 
 
 $totalArea = $apartment->calcArea();
 $totalWindowsCount = $apartment->totalWindowsCount('kitchen');
 $totalDoorsCount = $apartment->totalDoorsCount('kitchen');
 $totalTechnicalArea = $apartment->calcArea('technical');
-$livingRoomArea = $apartment->calcArea('living');
+$livingRoomArea = $apartment->calcArea('living room');
 
 // Output
 echo $totalArea . '<br>';
 echo $totalWindowsCount . '<br>';
 echo $totalDoorsCount . '<br>';
+echo $totalTechnicalArea . '<br>';
+echo $livingRoomArea . '<br>';
 
 
 
