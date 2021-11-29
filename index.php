@@ -4,15 +4,9 @@ class Room
 {
     protected float $a;
     protected float $b;
-    public ?string $type;
-
-    function __construct(float $a, float $b, string $type = null
-    )
-    {
-        $this->a = $a;
-        $this->b = $b;
-        $this->type = $type;
-    }
+    protected ?string $type;
+    protected $windowsCount;
+    protected $doorsCount;
 
     public function calcArea()
     {
@@ -67,7 +61,37 @@ class Room
         $this->type = $type;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getWindowsCount()
+    {
+        return $this->windowsCount;
+    }
 
+    /**
+     * @param mixed $windowsCount
+     */
+    public function setWindowsCount($windowsCount): void
+    {
+        $this->windowsCount = $windowsCount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDoorsCount()
+    {
+        return $this->doorsCount;
+    }
+
+    /**
+     * @param mixed $doorsCount
+     */
+    public function setDoorsCount($doorsCount): void
+    {
+        $this->doorsCount = $doorsCount;
+    }
 }
 
 class Apartment
@@ -90,6 +114,28 @@ class Apartment
         return $area;
     }
 
+    function totalWindowsCount(string $type)
+    {
+        $windowCount = 0;
+        $rooms = $this->getRooms();
+        /** @var Room $room */
+        foreach ($rooms as $room)
+            if (null===$type || ($type && $type === $room->getType()))
+                $windowCount += $room->getWindowsCount();
+        return $windowCount;
+    }
+
+    function totalDoorsCount(string $type)
+    {
+        $windowCount = 0;
+        $rooms = $this->getRooms();
+        /** @var Room $room */
+        foreach ($rooms as $room)
+            if (null===$type || ($type && $type === $room->getType()))
+                $windowCount += $room->getDoorsCount();
+        return $windowCount;
+    }
+
     /**
      * @return array
      */
@@ -105,26 +151,38 @@ class Apartment
     {
         $this->rooms = $rooms;
     }
-
-
 }
 
-$kitchen = new Room(3, 5, 'sanitary');
-$kitchen2 = new Room(3, 5, 'technical');
-$kitchen3 = new Room(3, 5, 'technical');
-$livingRoom = new Room(5, 5, 'living');
-$livingRoom2 = new Room(5, 5, 'living');
+$kitchen = new Room();
+$kitchen->setA(2);
+$kitchen->setB(4);
+$kitchen->setType('kitchen');
+$kitchen->setWindowsCount(3);
+$kitchen->setDoorsCount(2);
+
+$kitchen1 = new Room();
+$kitchen1->setA(2);
+$kitchen1->setB(4);
+$kitchen1->setType('kitchen');
+$kitchen1->setWindowsCount(3);
+$kitchen1->setDoorsCount(2);
+
 
 $apartment = new Apartment();
 $apartment->addRoom($kitchen);
-$apartment->addRoom($kitchen2);
-$apartment->addRoom($kitchen3);
-$apartment->addRoom($livingRoom);
-$apartment->addRoom($livingRoom2);
+$apartment->addRoom($kitchen1);
+
 
 $totalArea = $apartment->calcArea();
+$totalWindowsCount = $apartment->totalWindowsCount('kitchen');
+$totalDoorsCount = $apartment->totalDoorsCount('kitchen');
 $totalTechnicalArea = $apartment->calcArea('technical');
 $livingRoomArea = $apartment->calcArea('living');
+
+// Output
+echo $totalArea . '<br>';
+echo $totalWindowsCount . '<br>';
+echo $totalDoorsCount . '<br>';
 
 
 
