@@ -1,25 +1,26 @@
 <?php
 
-namespace app\core;
+namespace app\core\Apartment;
+
+use app\core\Room\Room;
 
 class Apartment
 {
     private $rooms = [];
     protected $roomTypes =
         [
-            'room',
-            'kitchen',
-            'toilet',
-            'livingroom',
-            'bathroom',
-            'bedroom'
+            'app\core\Room\Room',
+            'app\core\Room\Kitchen',
+            'app\core\Room\Toilet',
+            'app\core\Room\Livingroom',
+            'app\core\Room\Bathroom',
+            'app\core\Room\Bedroom'
         ];
 
     public function checkType(Room $room)
     {
-        $type = explode('\\', get_class($room));
-        $type = array_pop($type);
-        $type = strtolower($type);
+        $type = get_class($room);
+        echo $type;
         if(in_array($type, $this->roomTypes)) {
             return true;
         } else {
