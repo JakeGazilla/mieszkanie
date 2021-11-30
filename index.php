@@ -23,13 +23,13 @@ require_once __DIR__ . './vendor/autoload.php';
 echo "<h1>Generic Apartment</h1>";
 
 $room1 = new Attic();
-$room1->setA(2);
+$room1->setA(5);
 $room1->setB(4);
 $room1->setWindowsCount(3);
 $room1->setDoorsCount(2);
 
 $room2 = new Kitchen();
-$room2->setA(2);
+$room2->setA(5);
 $room2->setB(4);
 $room2->setWindowsCount(3);
 $room2->setDoorsCount(10);
@@ -46,7 +46,7 @@ $room4->setB(4);
 $room4->setWindowsCount(3);
 $room4->setDoorsCount(2);
 
-$room5 = new Bedroom();
+$room5 = new Attic();
 $room5->setA(2);
 $room5->setB(4);
 $room5->setWindowsCount(3);
