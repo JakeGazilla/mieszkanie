@@ -28,9 +28,9 @@ $room3->setDoorsCount(2);
 
 
 $apartment = new Apartment();
-$apartment->addRoom($room1);
-$apartment->addRoom($room2);
-$apartment->addRoom($room3);
+echo $apartment->addRoom($room1) . '<br>';
+echo $apartment->addRoom($room2) . '<br>';
+echo $apartment->addRoom($room3) . '<br>';
 
 
 $totalArea = $apartment->calcArea();

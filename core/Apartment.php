@@ -16,10 +16,10 @@ class Apartment
     {
         $givenType = $room->getType();
         if($this->roomType->checkType($givenType)) {
-            echo "Room added" . "<br>";
             $this->rooms[] = $room;
+            return 'Room added.';
         } else {
-            echo 'Cannot add the room. Wrong type.' . '<br>';
+            return 'Error. Cannot add room. Wrong type.';
         }
     }
 
