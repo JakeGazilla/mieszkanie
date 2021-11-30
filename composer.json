@@ -1,0 +1,16 @@
+{
+    "name": "kuba/mieszkanie4",
+    "description": "oop exercises",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jake Gazilla",
+            "email": "gadzala.jakub@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -1,130 +1,50 @@
 <?php
 
-class Room
-{
-    protected float $a;
-    protected float $b;
-    public ?string $type;
+require_once __DIR__ . './vendor/autoload.php';
+use app\core\Room;
+use app\core\RoomType;
+use app\core\Apartment;
 
-    function __construct(float $a, float $b, string $type = null
-    )
-    {
-        $this->a = $a;
-        $this->b = $b;
-        $this->type = $type;
-    }
+$room1 = new Room();
+$room1->setA(2);
+$room1->setB(4);
+$room1->setType('attic');
+$room1->setWindowsCount(3);
+$room1->setDoorsCount(2);
 
-    public function calcArea()
-    {
-        return $this->a * $this->b;
-    }
+$room2 = new Room();
+$room2->setA(2);
+$room2->setB(4);
+$room2->setType('kitchen');
+$room2->setWindowsCount(3);
+$room2->setDoorsCount(2);
 
-    /**
-     * @return float
-     */
-    public function getA(): float
-    {
-        return $this->a;
-    }
+$room3 = new Room();
+$room3->setA(2);
+$room3->setB(4);
+$room3->setType('living room');
+$room3->setWindowsCount(3);
+$room3->setDoorsCount(2);
 
-    /**
-     * @param float $a
-     */
-    public function setA(float $a): void
-    {
-        $this->a = $a;
-    }
-
-    /**
-     * @return float
-     */
-    public function getB(): float
-    {
-        return $this->b;
-    }
-
-    /**
-     * @param float $b
-     */
-    public function setB(float $b): void
-    {
-        $this->b = $b;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string|null $type
-     */
-    public function setType(?string $type): void
-    {
-        $this->type = $type;
-    }
-
-
-}
-
-class Apartment
-{
-    private $rooms = [];
-
-    public function addRoom(Room $room)
-    {
-        $this->rooms[] = $room;
-    }
-
-    function calcArea(string $type = null)
-    {
-        $area = 0;
-        $rooms = $this->getRooms();
-        foreach ($rooms as $room)
-            if (null===$type || ($type && $type === $room->getType()))
-                $area += $room->calcArea();
-
-        return $area;
-    }
-
-    /**
-     * @return array
-     */
-    public function getRooms(): array
-    {
-        return $this->rooms;
-    }
-
-    /**
-     * @param array $rooms
-     */
-    public function setRooms(array $rooms): void
-    {
-        $this->rooms = $rooms;
-    }
-
-
-}
-
-$kitchen = new Room(3, 5, 'sanitary');
-$kitchen2 = new Room(3, 5, 'technical');
-$kitchen3 = new Room(3, 5, 'technical');
-$livingRoom = new Room(5, 5, 'living');
-$livingRoom2 = new Room(5, 5, 'living');
 
 $apartment = new Apartment();
-$apartment->addRoom($kitchen);
-$apartment->addRoom($kitchen2);
-$apartment->addRoom($kitchen3);
-$apartment->addRoom($livingRoom);
-$apartment->addRoom($livingRoom2);
+echo $apartment->addRoom($room1) . '<br>';
+echo $apartment->addRoom($room2) . '<br>';
+echo $apartment->addRoom($room3) . '<br>';
+
 
 $totalArea = $apartment->calcArea();
+$totalWindowsCount = $apartment->totalWindowsCount('kitchen');
+$totalDoorsCount = $apartment->totalDoorsCount('kitchen');
 $totalTechnicalArea = $apartment->calcArea('technical');
-$livingRoomArea = $apartment->calcArea('living');
+$livingRoomArea = $apartment->calcArea('living room');
+
+// Output
+echo $totalArea . '<br>';
+echo $totalWindowsCount . '<br>';
+echo $totalDoorsCount . '<br>';
+echo $totalTechnicalArea . '<br>';
+echo $livingRoomArea . '<br>';
 
 
 
