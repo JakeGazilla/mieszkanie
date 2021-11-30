@@ -12,7 +12,6 @@ use app\core\Apartment;
 $room1 = new Room();
 $room1->setA(2);
 $room1->setB(4);
-$room1->setType('attic');
 $room1->setWindowsCount(3);
 $room1->setDoorsCount(2);
 
@@ -61,15 +60,15 @@ foreach ($statusOfRooms as $status) {
 $totalArea = $apartment->calcArea();
 $totalWindowsCount = $apartment->totalWindowsCount('kitchen');
 $totalDoorsCount = $apartment->totalDoorsCount('kitchen');
-$totalTechnicalArea = $apartment->calcArea('technical');
-$livingRoomArea = $apartment->calcArea('living room');
+$totalAreaOfRoomType1 = $apartment->calcArea('bathroom');
+$totalAreaOfRoomType2 = $apartment->calcArea('livingroom');
 
 // Output
-echo $totalArea . '<br>';
-echo $totalWindowsCount . '<br>';
-echo $totalDoorsCount . '<br>';
-echo $totalTechnicalArea . '<br>';
-echo $livingRoomArea . '<br>';
+echo 'Total area: '. $totalArea . '<br>';
+echo 'Widnows count: '. $totalWindowsCount . '<br>';
+echo 'Door count: '. $totalDoorsCount . '<br>';
+echo 'Total area of type 1: '. $totalAreaOfRoomType1 . '<br>';
+echo 'Total area of type 2: '. $totalAreaOfRoomType2 . '<br>';
 
 
 

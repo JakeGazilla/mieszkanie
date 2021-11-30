@@ -7,15 +7,19 @@ class Apartment
     private $rooms = [];
     protected $roomTypes =
         [
+            'room',
             'kitchen',
             'toilet',
-            'living room',
-            'balcony',
+            'livingroom',
+            'bathroom',
             'bedroom'
         ];
 
-    public function checkType($type)
+    public function checkType(Room $room)
     {
+        $type = explode('\\', get_class($room));
+        $type = array_pop($type);
+        $type = strtolower($type);
         if(in_array($type, $this->roomTypes)) {
             return true;
         } else {
@@ -25,8 +29,7 @@ class Apartment
 
     public function addRoom(Room $room)
     {
-        $givenType = $room->getType();
-        if($this->checkType($givenType)) {
+        if($this->checkType($room)) {
             $this->rooms[] = $room;
             return true;
         } else {
