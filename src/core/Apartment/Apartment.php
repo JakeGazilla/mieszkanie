@@ -20,7 +20,6 @@ class Apartment
     public function checkType(Room $room)
     {
         $type = get_class($room);
-        echo $type;
         if(in_array($type, $this->roomTypes)) {
             return true;
         } else {
