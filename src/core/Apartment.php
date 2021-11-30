@@ -5,21 +5,32 @@ namespace app\core;
 class Apartment
 {
     private $rooms = [];
-    protected RoomType $roomType;
+    protected $roomTypes =
+        [
+            'kitchen',
+            'toilet',
+            'living room',
+            'balcony',
+            'bedroom'
+        ];
 
-    public function __construct()
+    public function checkType($type)
     {
-        $this->roomType = new RoomType();
+        if(in_array($type, $this->roomTypes)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function addRoom(Room $room)
     {
         $givenType = $room->getType();
-        if($this->roomType->checkType($givenType)) {
+        if($this->checkType($givenType)) {
             $this->rooms[] = $room;
-            return 'Room added.';
+            return true;
         } else {
-            return 'Error. Cannot add room. Wrong type.';
+            return false;
         }
     }
 

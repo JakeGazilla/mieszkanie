@@ -6,7 +6,7 @@ class Room
 {
     protected float $a;
     protected float $b;
-    protected ?string $type;
+    protected ?string $type = 'general';
     protected $windowsCount;
     protected $doorsCount;
 
