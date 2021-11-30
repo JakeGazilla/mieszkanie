@@ -14,14 +14,6 @@ class Room
         return $this->a * $this->b;
     }
 
-    public function getType()
-    {
-        $type = explode('\\', get_class($this));
-        $type = array_pop($type);
-        $type = strtolower($type);
-        return $type;
-    }
-
     /**
      * @return float
      */

@@ -42,7 +42,7 @@ class Apartment
         $area = 0;
         $rooms = $this->getRooms();
         foreach ($rooms as $room)
-            if (null===$type || ($type && $type === $room->getType()))
+            if (null===$type || ($type && in_array($type, $this->roomTypes)))
                 $area += $room->calcArea();
 
         return $area;
@@ -54,7 +54,7 @@ class Apartment
         $rooms = $this->getRooms();
         /** @var Room $room */
         foreach ($rooms as $room)
-            if (null===$type || ($type && $type === $room->getType()))
+            if (null===$type || ($type && in_array($type, $this->roomTypes)))
                 $windowCount += $room->getWindowsCount();
         return $windowCount;
     }
@@ -65,7 +65,7 @@ class Apartment
         $rooms = $this->getRooms();
         /** @var Room $room */
         foreach ($rooms as $room)
-            if (null===$type || ($type && $type === $room->getType()))
+            if (null===$type || ($type && in_array($type, $this->roomTypes)))
                 $windowCount += $room->getDoorsCount();
         return $windowCount;
     }

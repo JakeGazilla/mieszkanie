@@ -3,6 +3,7 @@
 
 use app\core\Apartment\Apartment;
 use app\core\Apartment\ApartmentSmall;
+use app\core\Room\Attic;
 use app\core\Room\Bathroom;
 use app\core\Room\Bedroom;
 use app\core\Room\Kitchen;
@@ -21,7 +22,7 @@ require_once __DIR__ . './vendor/autoload.php';
 
 echo "<h1>Generic Apartment</h1>";
 
-$room1 = new Room();
+$room1 = new Attic();
 $room1->setA(2);
 $room1->setB(4);
 $room1->setWindowsCount(3);
@@ -53,6 +54,10 @@ $room5->setDoorsCount(2);
 
 // Instantiate generic Apartment and display its features
 $apartment = new Apartment();
+
+// Rooms added to $apartment
+echo "<h2>Rooms added to Apartment</h2>";
+
 $statusOfRooms = [];
 $statusOfRooms[] = $apartment->addRoom($room1) . '<br>';
 $statusOfRooms[] = $apartment->addRoom($room2) . '<br>';
@@ -67,6 +72,9 @@ foreach ($statusOfRooms as $status) {
         echo 'Wrong type of room' . '<br>';
     }
 }
+
+// $apartment features
+echo "<h2>Generic Apartment features:</h2>";
 
 $totalArea = $apartment->calcArea();
 $totalWindowsCount = $apartment->totalWindowsCount('kitchen');
@@ -85,6 +93,8 @@ echo 'Total area of type 2: '. $totalAreaOfRoomType2 . '<br>';
 // =============================== SMALL APARTMENT =====================================
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+echo "<br>";
+echo "<hr>";
 echo "<h1>Small Apartment</h1>";
 
 // Set rooms for Apartment small
@@ -120,6 +130,10 @@ $smallRoom5->setDoorsCount(2);
 
 // Instantiate small Apartment and display its features
 $smallApartment = new ApartmentSmall();
+
+// Rooms added to $apartment
+echo "<h2>Rooms added to Small Apartment</h2>";
+
 $smallApartmentStatusOfRooms = [];
 $smallApartmentStatusOfRooms[] = $smallApartment->addRoom($smallRoom1) . '<br>';
 $smallApartmentStatusOfRooms[] = $smallApartment->addRoom($smallRoom2) . '<br>';
@@ -134,6 +148,8 @@ foreach ($smallApartmentStatusOfRooms as $status) {
         echo 'Wrong type of room' . '<br>';
     }
 }
+// $apartment features
+echo "<h2>Small Apartment features:</h2>";
 
 $smallApartmenttotalArea = $smallApartment->calcArea();
 $smallApartmenttotalWindowsCount = $smallApartment->totalWindowsCount('kitchen');
