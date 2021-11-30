@@ -3,7 +3,7 @@
     "description": "oop exercises",
     "autoload": {
         "psr-4": {
-            "app\\": "./"
+            "app\\": "./src/"
         }
     },
     "authors": [
