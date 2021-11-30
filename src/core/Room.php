@@ -6,13 +6,20 @@ class Room
 {
     protected float $a;
     protected float $b;
-    protected ?string $type;
     protected $windowsCount;
     protected $doorsCount;
 
     public function calcArea()
     {
         return $this->a * $this->b;
+    }
+
+    public function getType()
+    {
+        $type = explode('\\', get_class($this));
+        $type = array_pop($type);
+        $type = strtolower($type);
+        return $type;
     }
 
     /**
@@ -45,22 +52,6 @@ class Room
     public function setB(float $b): void
     {
         $this->b = $b;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string|null $type
-     */
-    public function setType(?string $type): void
-    {
-        $this->type = $type;
     }
 
     /**
