@@ -10,4 +10,5 @@ class ApartmentSmall extends Apartment
             'app\core\Room\Bedroom',
             'app\core\Room\Toilet',
         ];
+
 }

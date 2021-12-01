@@ -20,7 +20,7 @@ require_once __DIR__ . './vendor/autoload.php';
 
 // Set rooms for generic Apartment Class
 
-echo "<h1>Generic Apartment</h1>";
+echo "<h1>ApartmentTrait Apartment</h1>";
 
 $room1 = new Attic();
 $room1->setA(5);
@@ -74,7 +74,7 @@ foreach ($statusOfRooms as $status) {
 }
 
 // $apartment features
-echo "<h2>Generic Apartment features:</h2>";
+echo "<h2>Apartment features:</h2>";
 
 $totalArea = $apartment->calcArea();
 $totalWindowsCount = $apartment->totalWindowsCount('kitchen');
