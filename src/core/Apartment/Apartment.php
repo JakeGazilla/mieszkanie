@@ -7,7 +7,16 @@ use app\core\Room\Room;
 class Apartment
 {
     private $rooms = [];
-    use ApartmentTrait;
+    private $roomTypes = [];
+
+    /**
+     * @param array $roomTypes
+     */
+    public function __construct(array $roomTypes)
+    {
+        $this->roomTypes = $roomTypes;
+    }
+
 
     public function checkType(Room $room)
     {

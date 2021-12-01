@@ -53,7 +53,16 @@ $room5->setWindowsCount(3);
 $room5->setDoorsCount(2);
 
 // Instantiate generic Apartment and display its features
-$apartment = new Apartment();
+$apartment = new Apartment(
+    [
+        'app\core\Room\Room',
+        'app\core\Room\Kitchen',
+        'app\core\Room\Toilet',
+        'app\core\Room\Livingroom',
+        'app\core\Room\Bathroom',
+        'app\core\Room\Bedroom'
+    ]
+);
 
 // Rooms added to $apartment
 echo "<h2>Rooms added to Apartment</h2>";
@@ -129,7 +138,13 @@ $smallRoom5->setWindowsCount(3);
 $smallRoom5->setDoorsCount(2);
 
 // Instantiate small Apartment and display its features
-$smallApartment = new ApartmentSmall();
+$smallApartment = new ApartmentSmall(
+    [
+        'app\core\Room\Room',
+        'app\core\Room\Kitchen',
+        'app\core\Room\Toilet',
+    ]
+);
 
 // Rooms added to $apartment
 echo "<h2>Rooms added to Small Apartment</h2>";
