@@ -4,16 +4,30 @@ namespace app\core\Models;
 
 class Model
 {
-    private $roomTypes = [
-        'app\core\Room\Room',
-        'app\core\Room\Kitchen',
-        'app\core\Room\Toilet',
-        'app\core\Room\Livingroom',
-        'app\core\Room\Bathroom',
-        'app\core\Room\Bedroom'
-    ];
+    private $roomTypes = [];
+
+    /**
+     * @param array $roomTypes
+     */
+    public function __construct(array $roomTypes = [])
+    {
+        $this->roomTypes = $roomTypes;
+    }
+
+
     public function getRoomList()
     {
         return $this->roomTypes;
     }
+
+    /**
+     * @param array $roomTypes
+     */
+    public function setRoomTypes(array $roomTypes): void
+    {
+        $this->roomTypes = $roomTypes;
+    }
+
+
+
 }

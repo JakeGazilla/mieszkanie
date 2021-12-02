@@ -3,6 +3,7 @@
 
 use app\core\Apartment\Apartment;
 use app\core\Apartment\ApartmentSmall;
+use app\core\Models\Model;
 use app\core\Room\Attic;
 use app\core\Room\Bathroom;
 use app\core\Room\Bedroom;
@@ -53,7 +54,15 @@ $room5->setWindowsCount(3);
 $room5->setDoorsCount(2);
 
 // Instantiate generic Apartment and display its features
-$apartment = new Apartment();
+$model1 = new Model([
+    'app\core\Room\Room',
+    'app\core\Room\Kitchen',
+    'app\core\Room\Toilet',
+    'app\core\Room\LivingRoom',
+    'app\core\Room\Bathroom',
+    'app\core\Room\Bedroom'
+]);
+$apartment = new Apartment($model1);
 
 // Rooms added to $apartment
 echo "<h2>Rooms added to Apartment</h2>";
@@ -129,7 +138,12 @@ $smallRoom5->setWindowsCount(3);
 $smallRoom5->setDoorsCount(2);
 
 // Instantiate small Apartment and display its features
-$smallApartment = new ApartmentSmall();
+$model2 = new Model([
+    'app\core\Room\Room',
+    'app\core\Room\Kitchen',
+    'app\core\Room\Toilet',
+]);
+$smallApartment = new ApartmentSmall($model2);
 
 // Rooms added to $apartment
 echo "<h2>Rooms added to Small Apartment</h2>";

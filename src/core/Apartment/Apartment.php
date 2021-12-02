@@ -7,23 +7,22 @@ use app\core\Room\Room;
 
 class Apartment
 {
-    private $rooms = [];
-    public $model;
+    private array $rooms = [];
+    private array $roomTypes;
 
     /**
      * @param Model $model
      */
-    public function __construct()
+    public function __construct(Model $userModel)
     {
-        $this->model = new Model();
+        $this->roomTypes = $userModel->getRoomList();
     }
 
 
-    public function checkType(Room $room)
+    public function checkType(Room $room): bool
     {
-        $roomTypes = $this->model->getRoomList();
         $type = get_class($room);
-        if(in_array($type, $roomTypes)) {
+        if(in_array($type, $this->roomTypes)) {
             return true;
         } else {
             return false;
