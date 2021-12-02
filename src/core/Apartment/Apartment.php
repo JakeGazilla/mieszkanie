@@ -2,26 +2,28 @@
 
 namespace app\core\Apartment;
 
+use app\core\Models\Model;
 use app\core\Room\Room;
 
 class Apartment
 {
     private $rooms = [];
-    private $roomTypes = [];
+    public $model;
 
     /**
-     * @param array $roomTypes
+     * @param Model $model
      */
-    public function __construct(array $roomTypes)
+    public function __construct()
     {
-        $this->roomTypes = $roomTypes;
+        $this->model = new Model();
     }
 
 
     public function checkType(Room $room)
     {
+        $roomTypes = $this->model->getRoomList();
         $type = get_class($room);
-        if(in_array($type, $this->roomTypes)) {
+        if(in_array($type, $roomTypes)) {
             return true;
         } else {
             return false;
