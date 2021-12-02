@@ -2,7 +2,6 @@
 
 namespace app\core\Apartment;
 
-use app\core\Models\Model;
 use app\core\Room\Room;
 
 class Apartment
@@ -76,4 +75,14 @@ class Apartment
     {
         $this->rooms = $rooms;
     }
+
+    /**
+     * @param array $roomTypes
+     */
+    public function setRoomTypes(array $roomTypes): void
+    {
+        $this->roomTypes = $roomTypes;
+    }
+
+
 }
