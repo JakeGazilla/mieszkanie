@@ -1,47 +1,39 @@
 <?php
 
-namespace app\core;
+namespace app\core\Apartment;
+
+use app\core\Models\Model;
+use app\core\Room\Room;
 
 class Apartment
 {
-    private $rooms = [];
-    protected $roomTypes =
-        [
-            'room',
-            'kitchen',
-            'toilet',
-            'livingroom',
-            'bathroom',
-            'bedroom'
-        ];
+    private array $rooms = [];
+    private array $roomTypes;
 
-    public function checkType(Room $room)
+ 
+    public function __construct()
     {
-        $type = explode('\\', get_class($room));
-        $type = array_pop($type);
-        $type = strtolower($type);
-        if(in_array($type, $this->roomTypes)) {
-            return true;
-        } else {
-            return false;
-        }
+    }
+
+
+    public function checkType(Room $room): bool
+    {
+       return in_array(get_class($room), $this->roomTypes) ;
     }
 
     public function addRoom(Room $room)
     {
-        if($this->checkType($room)) {
-            $this->rooms[] = $room;
-            return true;
-        } else {
-            return false;
-        }
+        if($this->checkType($room)) return false;
+        
+        $this->rooms[] = $room;
+        
+        return true;        
     }
 
     function calcArea(string $type = null)
     {
         $area = 0;
-        $rooms = $this->getRooms();
-        foreach ($rooms as $room)
+        foreach ($this->getRooms() as $room)
             if (null===$type || ($type && $type === $room->getType()))
                 $area += $room->calcArea();
 
@@ -51,20 +43,19 @@ class Apartment
     function totalWindowsCount(string $type)
     {
         $windowCount = 0;
-        $rooms = $this->getRooms();
         /** @var Room $room */
-        foreach ($rooms as $room)
+        foreach ($this->getRooms() as $room)
             if (null===$type || ($type && $type === $room->getType()))
                 $windowCount += $room->getWindowsCount();
+        
         return $windowCount;
     }
 
     function totalDoorsCount(string $type)
     {
-        $windowCount = 0;
-        $rooms = $this->getRooms();
+        $windowCount = 0; 
         /** @var Room $room */
-        foreach ($rooms as $room)
+        foreach ($this->getRooms() as $room)
             if (null===$type || ($type && $type === $room->getType()))
                 $windowCount += $room->getDoorsCount();
         return $windowCount;
